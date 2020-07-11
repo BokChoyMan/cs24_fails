@@ -42,6 +42,8 @@ public:
 
   bool isFull();
 
+  bool isEmpty();
+
   void init_arr(std::string* arr);
 
   int i_count();

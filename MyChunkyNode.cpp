@@ -110,6 +110,16 @@ bool MyChunkyNode::isFull(){
     return result;
 }
 
+bool MyChunkyNode::isEmpty(){
+    bool result = true;
+    for(int i = 0; i<_size; i++){
+        if(!this->items()[i].empty()||this->items()[i].compare("")!=0){
+            result = false;
+        }
+    }
+    return result;
+}
+
 void MyChunkyNode::init_arr(std::string* arr){
     for(int i = 0; i<_size; i++){
       arr[i]="";

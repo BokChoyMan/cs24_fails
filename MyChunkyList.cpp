@@ -27,10 +27,10 @@ ChunkyNode* MyChunkyList::tail() const{
 }
 
 void MyChunkyList::insert(int index, const std::string& item){
-    if((index < 0) || (index > count())) {
-        // Invalid index!  Throw an exception.
-        throw std::out_of_range("Invalid index.");
-    }
+    if((index < 0) || (index > count())) {	
+        // Invalid index!  Throw an exception.	
+        throw std::out_of_range("Invalid index.");	
+    }	  
     debug("break0");
 
     //first insert
@@ -67,7 +67,6 @@ void MyChunkyList::insert(int index, const std::string& item){
         int i_node = node->rel_index();
         std::string temp = node->items()[node->i_count()-1];
         int temp_i = node->i_count()-1 - i_node + index;
-
 
         //shift right
         for(int i = node->i_count()-1; i>=i_node; i--){
@@ -124,11 +123,6 @@ std::string& MyChunkyList::lookup(int index){
 }
 
 void MyChunkyList::remove(int index){
-
-  if(index < 0 || index > _chunksize) {
-    // Invalid index!  Throw an exception.
-    throw std::out_of_range("Invalid index.");
-  }
   if(index==0)
     _head->items()[0]="";
   MyChunkyNode* node = nodeIndex(index);
@@ -137,18 +131,17 @@ void MyChunkyList::remove(int index){
   }
   node->items()[node->i_count()-1]="";
   
-
-    /*
-  forEach([&](MyChunkyNode* node){
-    if(i == index){
-      node->prev()->next() = node->next();
-      node->next()->prev() = node->prev();
-      delete node;
-      return;
+ if(node->isEmpty()){
+    if(node!=head()){
+      node->prev()->setNext(node->next());
     }
-    i++;
-  });
-  */
+    else if(node!=tail()){
+      node->next()->setPrev(node->prev());  
+    }
+    delete node;
+  }
+    
+  
   _count--;
 }
 
@@ -175,15 +168,14 @@ MyChunkyNode* MyChunkyList::nodeIndex(int item_i){
               node->setRel_index(i);
               node_with_index = node;
               return node_with_index;
-              std::cout<<"bruh??"<<std::endl;
             }
         }
+        next = node->next();
         if((node->next()==nullptr)&&(node_i==item_i-1)){
           MyChunkyNode* new_node = new MyChunkyNode(_chunksize);
           new_node->setNext(next);
           new_node->setPrev(node);
           node->setNext(new_node);
-          std::cout<<"bruh"<<std::endl;
         }
         next = node->next();
       }

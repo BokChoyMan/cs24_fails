@@ -1,0 +1,264 @@
+valgrind --leak-check=full --show-leak-kinds=all  --track-origins=yes --verbose --log-file=valgrind-out.txt \
+==1425== Memcheck, a memory error detector
+==1425== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1425== Using Valgrind-3.17.0.GIT-3ab1ae5a89-20200618 and LibVEX; rerun with -h for copyright info
+==1425== Command: ./tdd
+==1425== Parent PID: 1103
+==1425== 
+--1425-- 
+--1425-- Valgrind options:
+--1425--    --leak-check=full
+--1425--    --show-leak-kinds=all
+--1425--    --track-origins=yes
+--1425--    --verbose
+--1425--    --log-file=valgrind-out.txt
+--1425-- Output from sysctl({CTL_KERN,KERN_VERSION}):
+--1425--   Darwin Kernel Version 19.3.0: Thu Jan  9 20:58:23 PST 2020; root:xnu-6153.81.5~1/RELEASE_X86_64
+--1425-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--1425-- Page sizes: currently 4096, max supported 4096
+--1425-- Valgrind library directory: /usr/local/lib/valgrind
+--1425-- ./tdd (rx at 0x100000000, rw at 0x100006000)
+--1425--    reading syms   from primary file (52 171)
+--1425--    dSYM= ./tdd.dSYM/Contents/Resources/DWARF/tdd
+--1425-- /usr/lib/dyld (rx at 0x10000d000, rw at 0x10009e000)
+--1425--    reading syms   from primary file (5 2716)
+--1425-- Scheduler: using generic scheduler lock implementation.
+--1425-- Reading suppressions file: /usr/local/lib/valgrind/default.supp
+==1425== embedded gdbserver: reading from /var/folders/vg/6bbv_lps48x9v50wgfby6_nw0000gn/T//vgdb-pipe-from-vgdb-to-1425-by-bindingoath-on-???
+==1425== embedded gdbserver: writing to   /var/folders/vg/6bbv_lps48x9v50wgfby6_nw0000gn/T//vgdb-pipe-to-vgdb-from-1425-by-bindingoath-on-???
+==1425== embedded gdbserver: shared mem   /var/folders/vg/6bbv_lps48x9v50wgfby6_nw0000gn/T//vgdb-pipe-shared-mem-vgdb-1425-by-bindingoath-on-???
+==1425== 
+==1425== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==1425== don't want to do, unless you know exactly what you're doing,
+==1425== or are doing some strange experiment):
+==1425==   /usr/local/lib/valgrind/../../bin/vgdb --pid=1425 ...command...
+==1425== 
+==1425== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==1425==   /path/to/gdb ./tdd
+==1425== and then give GDB the following command
+==1425==   target remote | /usr/local/lib/valgrind/../../bin/vgdb --pid=1425
+==1425== --pid is optional if only one valgrind process is running
+==1425== 
+--1425-- REDIR: 0x10005e520 (dyld:strcmp) redirected to 0x25806c710 (???)
+--1425-- REDIR: 0x100058810 (dyld:arc4random) redirected to 0x25806c7ae (???)
+--1425-- REDIR: 0x10005d900 (dyld:strlen) redirected to 0x25806c6df (???)
+--1425-- REDIR: 0x10005e820 (dyld:strcpy) redirected to 0x25806c72c (???)
+--1425-- REDIR: 0x10005b9a4 (dyld:strcat) redirected to 0x25806c6f0 (???)
+--1425-- REDIR: 0x10005d6fe (dyld:strlcat) redirected to 0x25806c749 (???)
+--1425-- /usr/local/lib/valgrind/vgpreload_core-amd64-darwin.so (rx at 0x100111000, rw at 0x100115000)
+--1425--    reading syms   from primary file (3 73)
+--1425--    dSYM= /usr/local/lib/valgrind/vgpreload_core-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_core-amd64-darwin.so
+--1425--    reading dwarf3 from dsyms file
+--1425-- /usr/local/lib/valgrind/vgpreload_memcheck-amd64-darwin.so (rx at 0x100118000, rw at 0x100122000)
+--1425--    reading syms   from primary file (75 404)
+--1425--    dSYM= /usr/local/lib/valgrind/vgpreload_memcheck-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_memcheck-amd64-darwin.so
+--1425--    reading dwarf3 from dsyms file
+--1425-- /usr/lib/libc++.1.dylib (rx at 0x100129000, rw at 0x10017d000)
+--1425--    reading syms   from primary file (2086 1198)
+--1425-- /usr/lib/libSystem.B.dylib (rx at 0x1001d6000, rw at 0x1001d8000)
+--1425--    reading syms   from primary file (29 8)
+--1425-- /usr/lib/libc++abi.dylib (rx at 0x1001e0000, rw at 0x1001f5000)
+--1425--    reading syms   from primary file (369 640)
+--1425-- /usr/lib/system/libcache.dylib (rx at 0x100211000, rw at 0x100217000)
+--1425--    reading syms   from primary file (32 29)
+--1425-- /usr/lib/system/libcommonCrypto.dylib (rx at 0x10021e000, rw at 0x10022a000)
+--1425--    reading syms   from primary file (242 172)
+--1425-- /usr/lib/system/libcompiler_rt.dylib (rx at 0x10023a000, rw at 0x100242000)
+--1425--    reading syms   from primary file (505 8)
+--1425-- /usr/lib/system/libcopyfile.dylib (rx at 0x100251000, rw at 0x10025b000)
+--1425--    reading syms   from primary file (11 39)
+--1425-- /usr/lib/system/libcorecrypto.dylib (rx at 0x100263000, rw at 0x1002fb000)
+--1425--    reading syms   from primary file (575 861)
+--1425-- /usr/lib/system/libdispatch.dylib (rx at 0x10031b000, rw at 0x10035d000)
+--1425--    reading syms   from primary file (328 1419)
+--1425-- /usr/lib/system/libdyld.dylib (rx at 0x100397000, rw at 0x1003cd000)
+--1425--    reading syms   from primary file (119 1463)
+--1425-- /usr/lib/system/libkeymgr.dylib (rx at 0x1003f6000, rw at 0x1003f7000)
+--1425--    reading syms   from primary file (11 2)
+--1425-- /usr/lib/system/libmacho.dylib (rx at 0x100406000, rw at 0x10040c000)
+--1425--    reading syms   from primary file (105 2)
+--1425-- /usr/lib/system/libquarantine.dylib (rx at 0x100414000, rw at 0x100417000)
+--1425--    reading syms   from primary file (88 12)
+--1425-- /usr/lib/system/libremovefile.dylib (rx at 0x10041f000, rw at 0x100421000)
+--1425--    reading syms   from primary file (12 8)
+--1425-- /usr/lib/system/libsystem_asl.dylib (rx at 0x100428000, rw at 0x100440000)
+--1425--    reading syms   from primary file (219 234)
+--1425-- /usr/lib/system/libsystem_blocks.dylib (rx at 0x10044f000, rw at 0x100450000)
+--1425--    reading syms   from primary file (21 8)
+--1425-- /usr/lib/system/libsystem_c.dylib (rx at 0x100457000, rw at 0x1004df000)
+--1425--    reading syms   from primary file (1346 892)
+--1425-- /usr/lib/system/libsystem_configuration.dylib (rx at 0x100509000, rw at 0x10050d000)
+--1425--    reading syms   from primary file (36 68)
+--1425-- /usr/lib/system/libsystem_coreservices.dylib (rx at 0x100516000, rw at 0x10051a000)
+--1425--    reading syms   from primary file (14 47)
+--1425-- /usr/lib/system/libsystem_darwin.dylib (rx at 0x100522000, rw at 0x10052b000)
+--1425--    reading syms   from primary file (63 562)
+--1425-- /usr/lib/system/libsystem_dnssd.dylib (rx at 0x100539000, rw at 0x100541000)
+--1425--    reading syms   from primary file (39 25)
+--1425-- /usr/lib/system/libsystem_featureflags.dylib (rx at 0x100549000, rw at 0x10054b000)
+--1425--    reading syms   from primary file (1 12)
+--1425-- /usr/lib/system/libsystem_info.dylib (rx at 0x100552000, rw at 0x1005a0000)
+--1425--    reading syms   from primary file (427 718)
+--1425-- /usr/lib/system/libsystem_m.dylib (rx at 0x1005b8000, rw at 0x100600000)
+--1425--    reading syms   from primary file (811 1)
+--1425-- /usr/lib/system/libsystem_malloc.dylib (rx at 0x100611000, rw at 0x100639000)
+--1425--    reading syms   from primary file (98 475)
+--1425-- /usr/lib/system/libsystem_networkextension.dylib (rx at 0x100649000, rw at 0x100657000)
+--1425--    reading syms   from primary file (118 242)
+--1425-- /usr/lib/system/libsystem_notify.dylib (rx at 0x100666000, rw at 0x100670000)
+--1425--    reading syms   from primary file (23 1)
+--1425-- /usr/lib/system/libsystem_sandbox.dylib (rx at 0x100678000, rw at 0x10067d000)
+--1425--    reading syms   from primary file (112 23)
+--1425-- /usr/lib/system/libsystem_secinit.dylib (rx at 0x100686000, rw at 0x100689000)
+--1425--    reading syms   from primary file (5 20)
+--1425-- /usr/lib/system/libsystem_kernel.dylib (rx at 0x100690000, rw at 0x1006bd000)
+--1425--    reading syms   from primary file (1356 227)
+--1425-- /usr/lib/system/libsystem_platform.dylib (rx at 0x1006db000, rw at 0x1006e5000)
+--1425--    reading syms   from primary file (168 103)
+--1425-- /usr/lib/system/libsystem_pthread.dylib (rx at 0x1006ef000, rw at 0x1006fa000)
+--1425--    reading syms   from primary file (189 143)
+--1425-- /usr/lib/system/libsystem_symptoms.dylib (rx at 0x100707000, rw at 0x10070f000)
+--1425--    reading syms   from primary file (10 86)
+--1425-- /usr/lib/system/libsystem_trace.dylib (rx at 0x100717000, rw at 0x10072e000)
+--1425--    reading syms   from primary file (131 257)
+--1425-- /usr/lib/system/libunwind.dylib (rx at 0x100740000, rw at 0x100746000)
+--1425--    reading syms   from primary file (102 52)
+--1425-- /usr/lib/system/libxpc.dylib (rx at 0x10074f000, rw at 0x100785000)
+--1425--    reading syms   from primary file (620 1288)
+--1425-- /usr/lib/libobjc.A.dylib (rx at 0x1007b0000, rw at 0x1007e2000)
+--1425--    reading syms   from primary file (382 727)
+--1425-- REDIR: 0x1006dd1e0 (libsystem_platform.dylib:_platform_memcmp) redirected to 0x10011cf90 (_platform_memcmp)
+--1425-- REDIR: 0x1006dca40 (libsystem_platform.dylib:_platform_strncmp) redirected to 0x10011bf50 (_platform_strncmp)
+--1425-- REDIR: 0x1006dc640 (libsystem_platform.dylib:_platform_strcmp) redirected to 0x10011bff0 (_platform_strcmp)
+--1425-- REDIR: 0x100611fd0 (libsystem_malloc.dylib:malloc) redirected to 0x100118e10 (malloc)
+--1425-- REDIR: 0x100614294 (libsystem_malloc.dylib:calloc) redirected to 0x100119860 (calloc)
+--1425-- REDIR: 0x10061413d (libsystem_malloc.dylib:realloc) redirected to 0x100119de0 (realloc)
+--1425-- REDIR: 0x10061445d (libsystem_malloc.dylib:malloc_default_zone) redirected to 0x10011aff0 (malloc_default_zone)
+--1425-- REDIR: 0x100612002 (libsystem_malloc.dylib:malloc_zone_malloc) redirected to 0x1001191c0 (malloc_zone_malloc)
+--1425-- REDIR: 0x1006142c9 (libsystem_malloc.dylib:malloc_zone_calloc) redirected to 0x100119b20 (malloc_zone_calloc)
+--1425-- REDIR: 0x100614465 (libsystem_malloc.dylib:malloc_zone_from_ptr) redirected to 0x10011b040 (malloc_zone_from_ptr)
+--1425-- REDIR: 0x100612ba1 (libsystem_malloc.dylib:free) redirected to 0x100119440 (free)
+--1425-- REDIR: 0x1006dd140 (libsystem_platform.dylib:_platform_strchr$VARIANT$Haswell) redirected to 0x10011b400 (_platform_strchr$VARIANT$Haswell)
+==1425== Conditional jump or move depends on uninitialised value(s)
+==1425==    at 0x100001579: MyChunkyNode::init_arr(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*) (in ./tdd)
+==1425==    by 0x1000013F6: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x1000015EA: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x100003EC8: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000028B7: main (in ./tdd)
+==1425==  Uninitialised value was created by a heap allocation
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1001E1717: operator new(unsigned long) (in /usr/lib/libc++abi.dylib)
+==1425==    by 0x100003EA2: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000028B7: main (in ./tdd)
+==1425== 
+--1425-- REDIR: 0x1006dcfe0 (libsystem_platform.dylib:_platform_memchr$VARIANT$Haswell) redirected to 0x10011c0a0 (_platform_memchr$VARIANT$Haswell)
+==1425== Conditional jump or move depends on uninitialised value(s)
+==1425==    at 0x100001579: MyChunkyNode::init_arr(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*) (in ./tdd)
+==1425==    by 0x1000013F6: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x1000015EA: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x100001A2D: MyChunkyNode::split() (in ./tdd)
+==1425==    by 0x1000043FA: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000029E4: main (in ./tdd)
+==1425==  Uninitialised value was created by a heap allocation
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1001E1717: operator new(unsigned long) (in /usr/lib/libc++abi.dylib)
+==1425==    by 0x100001A10: MyChunkyNode::split() (in ./tdd)
+==1425==    by 0x1000043FA: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000029E4: main (in ./tdd)
+==1425== 
+==1425== 
+==1425== HEAP SUMMARY:
+==1425==     in use at exit: 17,722 bytes in 162 blocks
+==1425==   total heap usage: 179 allocs, 17 frees, 22,642 bytes allocated
+==1425== 
+==1425== Searching for pointers to 162 not-freed blocks
+==1425== Checked 9,128,392 bytes
+==1425== 
+==1425== 80 bytes in 1 blocks are indirectly lost in loss record 21 of 38
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1001E1717: operator new(unsigned long) (in /usr/lib/libc++abi.dylib)
+==1425==    by 0x100001369: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x1000015EA: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x100001A2D: MyChunkyNode::split() (in ./tdd)
+==1425==    by 0x1000043FA: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000029E4: main (in ./tdd)
+==1425== 
+==1425== 128 (48 direct, 80 indirect) bytes in 1 blocks are definitely lost in loss record 28 of 38
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1001E1717: operator new(unsigned long) (in /usr/lib/libc++abi.dylib)
+==1425==    by 0x100001A10: MyChunkyNode::split() (in ./tdd)
+==1425==    by 0x1000043FA: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000029E4: main (in ./tdd)
+==1425== 
+==1425== 2,048 bytes in 1 blocks are still reachable in loss record 35 of 38
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1007CC5C6: foreach_realized_class(bool ( block_pointer)(objc_class*)) (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007CC557: protocol_addProperty_nolock(property_list_t*&, char const*, objc_property_attribute_t const*, unsigned int) (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007CFFA5: _base_objc_setAssociatedObject(objc_object*, void const*, objc_object*, objc_AssociationPolicy) (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007BEB3E: class_getInstanceMethod (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007B4875: NXHashInsert (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007C64A3: class_rw_t::extAlloc(class_ro_t const*, bool) (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007C5FF2: initializeNonMetaClass (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007C5FCB: initializeNonMetaClass (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007C5FCB: initializeNonMetaClass (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007C5FCB: initializeNonMetaClass (in /usr/lib/libobjc.A.dylib)
+==1425==    by 0x1007B29AE: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==1425== 
+==1425== 4,096 bytes in 1 blocks are still reachable in loss record 38 of 38
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1004934BD: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==1425==    by 0x1004A6DBE: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==1425==    by 0x1004926E3: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==1425==    by 0x100492C95: fwrite (in /usr/lib/system/libsystem_c.dylib)
+==1425==    by 0x1000036D0: std::__1::basic_streambuf<char, std::__1::char_traits<char> >::sputn(char const*, long) (in ./tdd)
+==1425==    by 0x1000034AF: std::__1::ostreambuf_iterator<char, std::__1::char_traits<char> > std::__1::__pad_and_output<char, std::__1::char_traits<char> >(std::__1::ostreambuf_iterator<char, std::__1::char_traits<char> >, char const*, char const*, char const*, std::__1::ios_base&, char) (in ./tdd)
+==1425==    by 0x1000030A2: std::__1::basic_ostream<char, std::__1::char_traits<char> >& std::__1::__put_character_sequence<char, std::__1::char_traits<char> >(std::__1::basic_ostream<char, std::__1::char_traits<char> >&, char const*, unsigned long) (in ./tdd)
+==1425==    by 0x100002E00: std::__1::basic_ostream<char, std::__1::char_traits<char> >& std::__1::operator<< <char, std::__1::char_traits<char>, std::__1::allocator<char> >(std::__1::basic_ostream<char, std::__1::char_traits<char> >&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x10000297B: main (in ./tdd)
+==1425== 
+==1425== LEAK SUMMARY:
+==1425==    definitely lost: 48 bytes in 1 blocks
+==1425==    indirectly lost: 80 bytes in 1 blocks
+==1425==      possibly lost: 0 bytes in 0 blocks
+==1425==    still reachable: 6,144 bytes in 2 blocks
+==1425==         suppressed: 11,450 bytes in 158 blocks
+==1425== 
+==1425== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 4 from 4)
+==1425== 
+==1425== 1 errors in context 1 of 3:
+==1425== Conditional jump or move depends on uninitialised value(s)
+==1425==    at 0x100001579: MyChunkyNode::init_arr(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*) (in ./tdd)
+==1425==    by 0x1000013F6: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x1000015EA: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x100001A2D: MyChunkyNode::split() (in ./tdd)
+==1425==    by 0x1000043FA: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000029E4: main (in ./tdd)
+==1425==  Uninitialised value was created by a heap allocation
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1001E1717: operator new(unsigned long) (in /usr/lib/libc++abi.dylib)
+==1425==    by 0x100001A10: MyChunkyNode::split() (in ./tdd)
+==1425==    by 0x1000043FA: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000029E4: main (in ./tdd)
+==1425== 
+==1425== 
+==1425== 1 errors in context 2 of 3:
+==1425== Conditional jump or move depends on uninitialised value(s)
+==1425==    at 0x100001579: MyChunkyNode::init_arr(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >*) (in ./tdd)
+==1425==    by 0x1000013F6: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x1000015EA: MyChunkyNode::MyChunkyNode(int) (in ./tdd)
+==1425==    by 0x100003EC8: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000028B7: main (in ./tdd)
+==1425==  Uninitialised value was created by a heap allocation
+==1425==    at 0x100118E94: malloc (vg_replace_malloc.c:310)
+==1425==    by 0x1001E1717: operator new(unsigned long) (in /usr/lib/libc++abi.dylib)
+==1425==    by 0x100003EA2: MyChunkyList::insert(int, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (in ./tdd)
+==1425==    by 0x1000028B7: main (in ./tdd)
+==1425== 
+--1425-- 
+--1425-- used_suppression:      2 OSX1015:dyld-4 /usr/local/lib/valgrind/default.supp:751 suppressed: 4,128 bytes in 2 blocks
+--1425-- used_suppression:     16 OSX1015:dyld-7 /usr/local/lib/valgrind/default.supp:781 suppressed: 2,384 bytes in 72 blocks
+--1425-- used_suppression:     15 OSX1015:dyld-8 /usr/local/lib/valgrind/default.supp:791 suppressed: 4,866 bytes in 81 blocks
+--1425-- used_suppression:      1 OSX1015:dyld-5 /usr/local/lib/valgrind/default.supp:761 suppressed: 72 bytes in 3 blocks
+--1425-- used_suppression:      1 OSX1015:dyld-2 /usr/local/lib/valgrind/default.supp:733
+==1425== 
+==1425== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 4 from 4)

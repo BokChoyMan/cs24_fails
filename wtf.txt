@@ -1,0 +1,52 @@
+next: 0x0
+[shoot,shoot4,shoot3,][shoot2,shoot1,_,]
+break0
+break0.1
+break0.1
+break3
+i split here2: 0x7fcfe2800000
+setNext here BOIIIIIIIIIIIIIIIIIIIII 0x7fcfe1601860
+setNext here BOIIIIIIIIIIIIIIIIIIIII 0x7fcfe2800000
+i split here2->next(): 0x7fcfe1601860
+i split here2->next()->next(): 0x0
+new_Node: 0x7fcfe2800000
+break4
+break0.1
+break0.1
+head: 0x7fcfe1700000
+head->next(): 0x7fcfe2800000
+head->next()->next(): 0x7fcfe1601860
+node: 0x7fcfe1700000
+node->next(): 0x7fcfe2800000
+shoot
+shoot5
+
+next: 0x7fcfe2800000
+node: 0x7fcfe2800000
+node->next(): 0x7fcfe1601860
+shoot4
+shoot3
+
+next: 0x7fcfe1601860
+node: 0x7fcfe1601860
+node->next(): 0x0
+shoot2
+shoot1
+
+next: 0x0
+[shoot,shoot5,_,][shoot4,shoot3,_,][shoot2,shoot1,_,]
+count: 4
+
+
+
+next: 0x0
+[shoot,shoot4,shoot3,][shoot2,shoot1,_,]
+break0
+break0.1
+break0.1
+break3
+i split here2: 0x7fa17b4019c0
+setNext here BOIIIIIIIIIIIIIIIIIIIII 0x7fa17b401940
+setNext here BOIIIIIIIIIIIIIIIIIIIII 0x7fa17b4019c0
+i split here2->next(): 0x7fa17b401940
+Segmentation fault: 11

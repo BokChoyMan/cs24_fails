@@ -57,11 +57,27 @@ MyChunkyNode* MyChunkyNode::next() const{
 }
 //case1: odd
 //case2: even
-void MyChunkyNode::split(int case_type){
+void MyChunkyNode::split(int case_type, std::string temp){
   MyChunkyNode* new_Node = new MyChunkyNode(_size);
-  new_Node->setNext(this->_next);
-  this->setNext(new_Node);
-  new_Node->setPrev(this);
+  //tail
+  if(this->next()==nullptr){
+    new_Node->setNext(nullptr);
+    this->setNext(new_Node);
+    new_Node->setPrev(this);
+    std::cout<<"i split here: "<<new_Node<<std::endl;
+  }
+  //!tail
+  else{
+    std::cout<<"i split here2: "<<new_Node<<std::endl;
+    new_Node->setNext(this->next());
+    this->setNext(new_Node);
+    new_Node->setPrev(this);
+    new_Node->next()->setPrev(new_Node);
+    new_Node->next()->setNext(nullptr);
+    std::cout<<"i split here2->next(): "<<new_Node->next()<<std::endl;
+    std::cout<<"i split here2->next()->next(): "<<new_Node->next()->next()<<std::endl;
+  }
+
   int chunksize = this->i_count();
 
   //odd case
@@ -70,6 +86,7 @@ void MyChunkyNode::split(int case_type){
         new_Node->_items[chunksize-1-i] = this->_items[i];
         this->_items[i] = "";
     }
+    new_Node->_items[chunksize-1-chunksize/2] = temp;
   } 
 
   //even case
@@ -78,18 +95,17 @@ void MyChunkyNode::split(int case_type){
       new_Node->_items[chunksize-1-i] = this->_items[i];
       this->_items[i] = "";
     }
+    new_Node->_items[chunksize-1-chunksize/2] = temp;
   }
-
+  std::cout<<"new_Node: "<<new_Node<<std::endl;
   new_Node->i_count();
   this->i_count();
 
-  
-    
 }
 
-void MyChunkyNode::setNext(MyChunkyNode* next) {_next = next;}
+void MyChunkyNode::setNext(MyChunkyNode* next) {_next = next; std::cout<<"setNext here BOIIIIIIIIIIIIIIIIIIIII "<<_next<<std::endl;}
 
-void MyChunkyNode::setPrev(MyChunkyNode* prev) {_prev = prev;}
+void MyChunkyNode::setPrev(MyChunkyNode* prev) {_prev = prev; std::cout<<"setPrev here BOIIIIIIIIIIIIIIIIIIIII "<<_prev<<std::endl;}
 
 void MyChunkyNode::setRel_index(int index){
     if(index<0)
@@ -130,6 +146,7 @@ std::string MyChunkyNode::nodeToString(){
     std::string str = "";
     str+="[";
         for(int i = 0; i<this->_size; i++){
+          std::cout<<this->items()[i] <<std::endl;
             if((this->items()[i].empty()) || this->items()[i].compare("")==0)
                 str+="_,";
             else

@@ -5,6 +5,7 @@ MyChunkyList::MyChunkyList(int chunksize){
   _head = nullptr;
   _chunksize = chunksize;
   _count = 0;
+  _tail = nullptr;
 }
 
 int MyChunkyList::count() const{
@@ -26,6 +27,15 @@ ChunkyNode* MyChunkyList::tail() const{
   return tail;
 }
 
+void MyChunkyList::find_Tail(){
+  MyChunkyNode* next;
+  for(MyChunkyNode* node = _head; node!=nullptr; node = next){
+    next = node->next();
+    if(!node->next())
+      _tail = node;
+  }
+}
+
 void MyChunkyList::insert(int index, const std::string& item){
     if((index < 0) || (index > count())) {	
         // Invalid index!  Throw an exception.	
@@ -36,15 +46,9 @@ void MyChunkyList::insert(int index, const std::string& item){
     //first insert
     if(_count == 0 )
       _head = new MyChunkyNode(_chunksize);
-
     MyChunkyNode* node = nodeIndex(index);
     MyChunkyNode* next;
-    MyChunkyNode* tail = nullptr;
-    for(MyChunkyNode* node = _head; node!=nullptr; node = next){
-      next = node->next();
-      if(!node->next())
-        tail = node;
-    }
+    find_Tail();
 
     //head
     if((index == 0)&&(node->isFull())){
@@ -54,10 +58,10 @@ void MyChunkyList::insert(int index, const std::string& item){
         node->setPrev(new_node);
     }
     //tail
-    else if(node==tail&&(index==count()-1)&&node->isFull()){
+    else if(node==_tail&&(index==count()-1)&&node->isFull()){
         debug("break2");
-        MyChunkyNode* new_node = new MyChunkyNode(item, tail, nullptr, _chunksize);
-        tail->setNext(new_node);
+        MyChunkyNode* new_node = new MyChunkyNode(item, _tail, nullptr, _chunksize);
+        _tail->setNext(new_node);
         node->i_count();
         new_node->i_count();
     }
@@ -66,7 +70,7 @@ void MyChunkyList::insert(int index, const std::string& item){
         debug("break3");
         int i_node = node->rel_index();
         std::string temp = node->items()[node->i_count()-1];
-        int temp_i = node->i_count()-1 - i_node + index;
+        //int temp_i = node->i_count() - i_node + index;
 
         //shift right
         for(int i = node->i_count()-1; i>=i_node; i--){
@@ -75,13 +79,14 @@ void MyChunkyList::insert(int index, const std::string& item){
         //insert
         node->items()[i_node]=item;
 
-        node->split(1);
+        node->split(1,temp);
+        
         debug("break4");
+        node->i_count();
         node = nodeIndex(index);
+        //insert(temp_i,temp);
         node->i_count();
-        insert(temp_i,temp);
-        node->i_count();
-        return;
+        
     }
     //theres some space
     else{
@@ -108,13 +113,31 @@ void MyChunkyList::insert(int index, const std::string& item){
         //std::string temp =;
         //node->items()[node->rel_index()]=temp;
     }
-
     debug("break7");
-    
-    _count++;
+    _count++; 
+
+    //merge check
+    find_Tail();
+    if(_head == _tail){
+      return;
+    }
+    else{
+      for(MyChunkyNode* node = _head; node->next()!=nullptr; node = next){
+          next = node->next();
+          int count = node->i_count() + next->i_count();
+          if(count<=_chunksize/2){
+            merge(node,next);
+          }
+      }
+    }
+   
 }
 
 std::string& MyChunkyList::lookup(int index){
+  if((index < 0) || (index > count())) {	
+        // Invalid index!  Throw an exception.	
+        throw std::out_of_range("Invalid index.");	
+    }
   std::string* result;
   MyChunkyNode* node = nodeIndex(index);
   int i = node->rel_index();
@@ -123,26 +146,73 @@ std::string& MyChunkyList::lookup(int index){
 }
 
 void MyChunkyList::remove(int index){
-  if(index==0)
-    _head->items()[0]="";
-  MyChunkyNode* node = nodeIndex(index);
-  for(int i = 1 ; i<node->i_count()-1; i++){
-    node->items()[i]= node->items()[i+1];
+  if((index < 0) || (index > count())) {	
+        // Invalid index!  Throw an exception.	
+        throw std::out_of_range("Invalid index.");	
   }
-  node->items()[node->i_count()-1]="";
-  
- if(node->isEmpty()){
-    if(node!=head()){
-      node->prev()->setNext(node->next());
+  MyChunkyNode* node = nodeIndex(index);
+  if(index==0){
+    _head->items()[0]="";
+  }
+  else{
+    for(int i = 1 ; i<node->i_count()-1; i++){
+      node->items()[i]= node->items()[i+1];
     }
-    else if(node!=tail()){
-      node->next()->setPrev(node->prev());  
+    node->items()[node->i_count()-1]="";
+  }
+
+  node->i_count();
+  _count--;
+
+ if(node->isEmpty()){
+    if(node!=head()&&node!=tail()){
+      node->prev()->setNext(node->next());
+      node->next()->setPrev(node->prev());
+    }
+    else if(node==tail()&&node==head()){
+      delete node;
+      _head = nullptr;
+      return;
+    }
+    else if(node==tail()){
+      node->prev()->setNext(nullptr);  
+    }
+    else if(node==head()){
+      node->next()->setPrev(nullptr);
+      _head = node->next();
     }
     delete node;
   }
-    
+}
+
+void MyChunkyList::merge(MyChunkyNode* node1, MyChunkyNode* node2){
+  int m = node1->i_count();
+  int n = node2->i_count();
+  for (int i = 0; i < m + n; i++) {
+      if (i >= m){
+        node1->items()[i] = node2->items()[i - m];
+        node2->items()[i - m]="";
+      }
+	}
+
+  if(node2!=head()&&node2!=tail()){
+    node2->prev()->setNext(node2->next());
+    node2->next()->setPrev(node2->prev());
+  }
+  else if(node2==tail()&&node2==head()){
+    delete node2;
+    _head = nullptr;
+    return;
+  }
+  else if(node2==tail()){
+    node2->prev()->setNext(nullptr);  
+  }
+  else if(node2==head()){
+    node2->next()->setPrev(nullptr);
+    _head = node2->next();
+  }
+  delete node2;
   
-  _count--;
 }
 
 MyChunkyNode* MyChunkyList::nodeIndex(int item_i){
@@ -173,19 +243,22 @@ MyChunkyNode* MyChunkyList::nodeIndex(int item_i){
         next = node->next();
         if((node->next()==nullptr)&&(node_i==item_i-1)){
           MyChunkyNode* new_node = new MyChunkyNode(_chunksize);
-          new_node->setNext(next);
+          new_node->setNext(nullptr);
           new_node->setPrev(node);
           node->setNext(new_node);
+          _tail = new_node;
         }
         next = node->next();
       }
     }
+  //index at that point already exists
   else{
     node_i=-1;
     for(node = _head; node!=nullptr; node = next){
       for(int i = 0; i<_chunksize; i++){
           if(!node->items()[i].empty()||node->items()[i].compare("")!=0){
             node_i++;
+            debug("break0.1");
             if(node_i==item_i){
               node->setRel_index(i);
               node_with_index = node;
@@ -203,18 +276,28 @@ std::string MyChunkyList::listToString(){
     std::string str = "";
     MyChunkyNode* next;
     for(MyChunkyNode* node = _head; node!=nullptr; node = next){
+        std::cout<<"node: "<<node<<std::endl;
+        std::cout<<"node->next(): "<<node->next()<<std::endl;
         str+=node->nodeToString();
         next = node->next();
+        std::cout<<"next: "<<next<<std::endl;
     }
     return str;
 }
 
 void MyChunkyList::debug(std::string msg){
-  bool debug = false;
+  bool debug = true;
+  if(debug)
+    std::cout<<msg<<std::endl;
+}
+
+void MyChunkyList::debug(int msg){
+  bool debug = true;
   if(debug)
     std::cout<<msg<<std::endl;
 }
 
 MyChunkyList::~MyChunkyList() {
   delete _head;
+  delete _tail;
 }

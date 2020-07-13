@@ -30,7 +30,7 @@ public:
   // Returns a pointer to the Node after this one, or nullptr.
   MyChunkyNode* next() const;
 
-  void split(int case_type);
+  void split(int case_type, std::string temp);
 
   void setNext(MyChunkyNode* next);
 

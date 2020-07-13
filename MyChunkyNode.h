@@ -4,7 +4,7 @@
 #include "ChunkyNode.h"
 
 class MyChunkyNode: public ChunkyNode {
-
+  
   MyChunkyNode* _prev;
   MyChunkyNode* _next;
   std::string* _items;
@@ -29,6 +29,8 @@ public:
 
   // Returns a pointer to the Node after this one, or nullptr.
   MyChunkyNode* next() const;
+
+  void split(int case_type);
 
   void split(int case_type, std::string temp);
 

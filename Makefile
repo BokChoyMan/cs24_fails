@@ -1,6 +1,6 @@
 CXX = g++
 
-CXXFLAGS = -Wall -Wno-uninitialized
+CXXFLAGS = -g -Wall -Wno-uninitialized
 
 BINARIES = tdd
 

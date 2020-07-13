@@ -6,9 +6,8 @@
 #include <iostream>
 
 class MyChunkyList: public ChunkyList {
-
+  
   MyChunkyNode* _head;
-  MyChunkyNode* _tail;
   int _chunksize;
   int _count;
 
